@@ -1,29 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Box, Grid, TextField } from "@mui/material";
 import "./style.css";
-import FormHelper from "../../utility"
-
+import FormHelper from "../../utility";
+import {create_user, create_profile, reset_success, reset_error} from "../../redux/user-slice"
+import {useDispatch, useSelector} from "react-redux"
 export default function Register() {
-  let {handleInput} = new FormHelper()
+  // Import handleInput function
+  let { handleInput } = new FormHelper();
+  const dispatch = useDispatch()
+//This forms state
   const [formstate, setFormState] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    callsign: "",
   });
+
+  const [profilestate, setProfileState] = useState({
+    callsign: "",
+  })
+const UserId = useSelector(state => state.Store.User.UserId)
+console.log(UserId)
+
+  const handle_submit = (event) =>{
+    event.preventDefault()
+    dispatch(create_user(formstate))
+  }
+
+  useEffect(() => {
+    
+    dispatch(create_profile(profilestate["user_id"] = UserId))
+    return () => {
+      dispatch(reset_error, reset_success)
+    };
+  }, [UserId]);
+  
+
+
+
   return (
     <div className="register-container">
-      
-      <form className="register-form">
+      <form onSubmit={handle_submit} className="register-form">
         <div>
           <p>Welcome to Chat, fill out the form below to register!</p>
         </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid className="grid-item" container spacing={2}>
-            <Grid className="grid-item" item  md={6} lg={4}>
+            <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-                onChange={(event)=>handleInput(formstate, setFormState, event)}
+                onChange={(event) =>
+                  handleInput(formstate, setFormState, event)
+                }
                 size="small"
                 variant="outlined"
                 name="first_name"
@@ -32,9 +59,11 @@ export default function Register() {
                 required="true"
               ></TextField>
             </Grid>
-            <Grid className="grid-item" item  md={6} lg={4}>
+            <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-              onChange={(event)=>handleInput(formstate, setFormState, event)}
+                onChange={(event) =>
+                  handleInput(formstate, setFormState, event)
+                }
                 size="small"
                 variant="outlined"
                 name="last_name"
@@ -43,9 +72,11 @@ export default function Register() {
                 required="true"
               ></TextField>
             </Grid>
-            <Grid className="grid-item" item  md={6} lg={4}>
+            <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-              onChange={(event)=>handleInput(formstate, setFormState, event)}
+                onChange={(event) =>
+                  handleInput(formstate, setFormState, event)
+                }
                 size="small"
                 variant="outlined"
                 name="email"
@@ -54,9 +85,11 @@ export default function Register() {
                 required="true"
               ></TextField>
             </Grid>
-            <Grid className="grid-item" item  md={6} lg={4}>
+            <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-              onChange={(event)=>handleInput(formstate, setFormState, event)}
+                onChange={(event) =>
+                  handleInput(formstate, setFormState, event)
+                }
                 size="small"
                 variant="outlined"
                 name="password"
@@ -66,13 +99,15 @@ export default function Register() {
                 required="true"
               ></TextField>
             </Grid>
-            <Grid className="grid-item" item  md={6} lg={4}>
+            <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-              onChange={(event)=>handleInput(formstate, setFormState, event)}
+                onChange={(event) =>
+                  handleInput(profilestate, setProfileState, event)
+                }
                 size="small"
                 variant="outlined"
                 name="callsign"
-                value={formstate.callsign}
+                value={profilestate.callsign}
                 label="Call Sign"
                 required="true"
               ></TextField>
@@ -80,7 +115,9 @@ export default function Register() {
           </Grid>
         </Box>
         <div className="form-submit-button-container">
-        <Button  type="submit" variant="outlined">Register</Button>
+          <Button type="submit" variant="outlined">
+            Register
+          </Button>
         </div>
       </form>
     </div>

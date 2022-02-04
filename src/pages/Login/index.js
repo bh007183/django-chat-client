@@ -4,14 +4,22 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FormHelper from "../../utility";
 import {Link} from "react-router-dom"
 import "./style.css";
+import {user_login} from "../../redux/user-slice";
+import {useDispatch, useSelectore} from "react-redux"
 
 export default function Login() {
   let { handleInput } = new FormHelper();
+  const dispatch = useDispatch()
 
   const [formstate, setFormState] = useState({
     email: "",
     password: "",
   });
+
+  const handle_login = (event) =>{
+    event.preventDefault()
+    dispatch(user_login(formstate))
+  }
 
   return (
     <main className="login-create-container">
@@ -20,7 +28,7 @@ export default function Login() {
         <div>
           <h1 className="center-align entry-title">Login</h1>
           <div className="entry-form-wraper">
-            <form className="entry-form">
+            <form onSubmit={handle_login} className="entry-form">
               <div className="form-content-wraper align">
                 <div className="entry-input-contain">
                   <input
