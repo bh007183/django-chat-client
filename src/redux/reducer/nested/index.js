@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import user_slice from "../../user-slice"
+import user_slice from "../../auth-slice"
 import connection_slice from "../../connection-slice"
 
 export default combineReducers({

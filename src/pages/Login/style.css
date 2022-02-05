@@ -3,6 +3,7 @@
     height: 100vh;
     width: 100vw;
 }
+
 .top-wave{
     position: absolute;
     top: 0px;
@@ -23,7 +24,7 @@
 .center-contain{
     position: absolute;
     top: 10px;
-    border-radius: 99% 100% 100% 100% / 62% 63% 87% 0%     ;
+    border-radius: 99% 100% 100% 100% / 62% 63% 87% 0%;
     width: 100vw;
     height: 90vh;
     background-color: rgb(255, 253, 242);
@@ -70,7 +71,6 @@ padding: 0 20px 0 20px;
 }
 #register-link{
     position: absolute;
-
     top: 65%;
     left: 10px;
     text-decoration: none;

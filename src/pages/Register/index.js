@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Box, Grid, TextField } from "@mui/material";
 import "./style.css";
 import FormHelper from "../../utility";
-import {create_user, create_profile, reset_success, reset_error} from "../../redux/auth-slice"
+import {create_user, reset_error} from "../../redux/auth-slice"
 import {useDispatch, useSelector} from "react-redux"
 export default function Register() {
   // Import handleInput function
@@ -30,7 +30,7 @@ export default function Register() {
   useEffect(() => {
     return () => {
       dispatch(reset_error())
-      dispatch(reset_success())
+     
     };
   });
   
@@ -95,19 +95,6 @@ export default function Register() {
                 value={formstate.password}
                 label="Password"
                 type="password"
-                required="true"
-              ></TextField>
-            </Grid>
-            <Grid className="grid-item" item md={6} lg={4}>
-              <TextField
-                onChange={(event) =>
-                  handleInput(profilestate, setProfileState, event)
-                }
-                size="small"
-                variant="outlined"
-                name="callsign"
-                value={profilestate.callsign}
-                label="Call Sign"
                 required="true"
               ></TextField>
             </Grid>

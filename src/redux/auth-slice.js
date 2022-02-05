@@ -16,7 +16,7 @@ export const slice = createSlice({
     user_created: (User, action) => {
       console.log(action.payload)
       User.Success = true
-      window.location.href = "/"
+      window.location.replace("/")
     },
   
     reset_error:(User, action) => {
