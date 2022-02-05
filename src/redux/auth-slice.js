@@ -10,24 +10,15 @@ export const slice = createSlice({
     Success: "",
     Error: "",
     LoggedIn: false,
-    UserId: null,
 
   },
   reducers: {
     user_created: (User, action) => {
       console.log(action.payload)
       User.Success = true
+      window.location.href = "/"
     },
-    set_success:(User, action) => {
-      console.log(action)
-      console.log(action.payload)
-      User.UserId = action.payload.id
-      User.Success = true
-    },
-    reset_success:(User, action) => {
-      User.Success= ""
-
-    },
+  
     reset_error:(User, action) => {
       User.Error= ""
 
@@ -46,7 +37,7 @@ export const slice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {user_created,logged_in, reset_success,reset_error,set_error,set_success } = slice.actions
+export const {user_created,logged_in, reset_error,set_error } = slice.actions
 
 export default slice.reducer
 
@@ -54,12 +45,15 @@ export const create_user = (data) => api_start({
   url: "http://127.0.0.1:8000/auth/users/",
   method: "POST",
   data: data,
-  onSuccess: set_success.type,
+  onSuccess: user_created.type,
   onError: set_error.type
 })
 export const create_profile = (data) => api_start({
   url: "http://127.0.0.1:8000/chat/profile/",
   method: "POST",
+  headers: {
+    authorization: localStorage.getItem("token")
+  },
   data,
   onSuccess: set_success.type,
   onError: set_error.type
