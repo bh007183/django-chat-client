@@ -48,16 +48,6 @@ export const create_user = (data) => api_start({
   onSuccess: user_created.type,
   onError: set_error.type
 })
-export const create_profile = (data) => api_start({
-  url: "http://127.0.0.1:8000/chat/profile/",
-  method: "POST",
-  headers: {
-    authorization: localStorage.getItem("token")
-  },
-  data,
-  onSuccess: set_success.type,
-  onError: set_error.type
-})
 
 export const user_login = (data) => api_start({
   url: "http://127.0.0.1:8000/auth/jwt/create/",

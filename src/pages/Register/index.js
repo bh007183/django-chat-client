@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Box, Grid, TextField } from "@mui/material";
 import "./style.css";
 import FormHelper from "../../utility";
-import {create_user, create_profile, reset_success, reset_error} from "../../redux/user-slice"
+import {create_user, create_profile, reset_success, reset_error} from "../../redux/auth-slice"
 import {useDispatch, useSelector} from "react-redux"
 export default function Register() {
   // Import handleInput function
@@ -16,24 +16,23 @@ export default function Register() {
     password: "",
   });
 
-  const [profilestate, setProfileState] = useState({
-    callsign: "",
-  })
-const UserId = useSelector(state => state.Store.User.UserId)
-console.log(UserId)
+
+
+
 
   const handle_submit = (event) =>{
     event.preventDefault()
     dispatch(create_user(formstate))
   }
 
+
+
   useEffect(() => {
-    
-    dispatch(create_profile(profilestate["user_id"] = UserId))
     return () => {
-      dispatch(reset_error, reset_success)
+      dispatch(reset_error())
+      dispatch(reset_success())
     };
-  }, [UserId]);
+  });
   
 
 
