@@ -6,12 +6,14 @@ import {Link} from "react-router-dom"
 import "./style.css";
 import {user_login} from "../../redux/auth-slice";
 import {useDispatch, useSelectore} from "react-redux"
-
+import { useStoreContext } from "../Context/store";
 export default function Login() {
   
-  let { handleInput } = new FormHelper();
+  const [state, dispatch] = useStoreContext()
+  console.log(state)
+  console.log(useStoreContext())
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const [formstate, setFormState] = useState({
     email: "",
@@ -20,7 +22,25 @@ export default function Login() {
 
   const handle_login = (event) =>{
     event.preventDefault()
-    dispatch(user_login(formstate))
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    const myRequest = new Request('http://127.0.0.1:8000/auth/jwt/create/', {
+    method: 'POST',
+    headers: myHeaders,
+    body: formstate
+    });
+    console.log("horse")
+
+    dispatch({ type: 'FETCH', myRequest})
+  }
+
+  const handleInput = (event) =>{
+    let name = event.target.name;
+    let value = event.target.value;
+    setFormState({
+      ...formstate, [name]: value
+    })
+    
   }
 
   return (
@@ -29,15 +49,14 @@ export default function Login() {
       <section className="center-contain">
         <div>
           <h1 className="center-align entry-title">Login</h1>
+          <h6></h6>
           <div className="entry-form-wraper">
             <form onSubmit={handle_login} className="entry-form">
               <div className="form-content-wraper align">
                 <div className="entry-input-contain">
                   <input
                     placeholder="Email"
-                    onChange={(event) =>
-                      handleInput(formstate, setFormState, event)
-                    }
+                    onChange={handleInput}
                     id="top-input"
                     style={{ display: "block" }}
                     name="email"
@@ -46,9 +65,7 @@ export default function Login() {
                   <input
                     type="password"
                     placeholder="Password"
-                    onChange={(event) =>
-                      handleInput(formstate, setFormState, event)
-                    }
+                    onChange={handleInput}
                     id="bottom-input"
                     style={{ display: "block" }}
                     name="password"

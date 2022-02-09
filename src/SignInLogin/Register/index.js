@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Box, Grid, TextField } from "@mui/material";
 import "./style.css";
 import FormHelper from "../../utility";
-import {create_user, reset_error} from "../../redux/auth-slice"
-import {useDispatch, useSelector} from "react-redux"
+import { create_user, reset_error } from "../../redux/auth-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { useStoreContext } from "../Context/store";
 export default function Register() {
   // Import handleInput function
-  let { handleInput } = new FormHelper();
-  const dispatch = useDispatch()
-//This forms state
+ 
+  const [state, dispatch] = useStoreContext();
+  //This forms state
   const [formstate, setFormState] = useState({
     first_name: "",
     last_name: "",
@@ -16,26 +17,33 @@ export default function Register() {
     password: "",
   });
 
-
-
-
-
-  const handle_submit = (event) =>{
+  const handle_submit = (event) => {
+    event.preventDefault();
     event.preventDefault()
-    dispatch(create_user(formstate))
-  }
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    const myRequest = new Request('http://127.0.0.1:8000/auth/users/', {
+    method: 'POST',
+    headers: myHeaders,
+    body: formstate
+    });
+    dispatch({ type: 'FETCH', myRequest})
+  };
 
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(reset_error());
+  //   };
+  // });
 
-
-  useEffect(() => {
-    return () => {
-      dispatch(reset_error())
-     
-    };
-  });
-  
-
-
+  const handleInput = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    setFormState({
+      ...formstate,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="register-container">
@@ -47,9 +55,7 @@ export default function Register() {
           <Grid className="grid-item" container spacing={2}>
             <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-                onChange={(event) =>
-                  handleInput(formstate, setFormState, event)
-                }
+                onChange={handleInput}
                 size="small"
                 variant="outlined"
                 name="first_name"
@@ -60,9 +66,7 @@ export default function Register() {
             </Grid>
             <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-                onChange={(event) =>
-                  handleInput(formstate, setFormState, event)
-                }
+                onChange={handleInput}
                 size="small"
                 variant="outlined"
                 name="last_name"
@@ -73,9 +77,7 @@ export default function Register() {
             </Grid>
             <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-                onChange={(event) =>
-                  handleInput(formstate, setFormState, event)
-                }
+                onChange={handleInput}
                 size="small"
                 variant="outlined"
                 name="email"
@@ -86,9 +88,7 @@ export default function Register() {
             </Grid>
             <Grid className="grid-item" item md={6} lg={4}>
               <TextField
-                onChange={(event) =>
-                  handleInput(formstate, setFormState, event)
-                }
+                onChange={handleInput}
                 size="small"
                 variant="outlined"
                 name="password"
