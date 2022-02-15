@@ -7,6 +7,7 @@ const StoreContext = createContext();
 const { Provider } = StoreContext;
 
 const initialState = {
+    fetchType: "",
     success: "",
     error: "",
 }

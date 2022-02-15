@@ -19,13 +19,12 @@ export default function Register() {
 
   const handle_submit = (event) => {
     event.preventDefault();
-    event.preventDefault()
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json')
     const myRequest = new Request('http://127.0.0.1:8000/auth/users/', {
     method: 'POST',
     headers: myHeaders,
-    body: formstate
+    body: JSON.stringify(formstate)
     });
     dispatch({ type: 'FETCH', myRequest})
   };

@@ -27,10 +27,9 @@ export default function Login() {
     const myRequest = new Request('http://127.0.0.1:8000/auth/jwt/create/', {
     method: 'POST',
     headers: myHeaders,
-    body: formstate
+    body: JSON.stringify(formstate)
     });
-    console.log("horse")
-
+    
     dispatch({ type: 'FETCH', myRequest})
   }
 

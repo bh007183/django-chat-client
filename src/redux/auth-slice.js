@@ -26,6 +26,7 @@ export const slice = createSlice({
     logged_in:(User,action) => {
       User.LoggedIn = true
       localStorage.setItem("token", `JWT ${action.payload.access}`)
+      window.location.href = "/"
     },
 
     set_error: (User, action) => {
