@@ -8,7 +8,7 @@ export default function SignInLogin() {
     <StoreProvider>
    <Routes>
        
-       <Route path="/" element={<Login/>}/>
+       <Route path="/login" element={<Login/>}/>
          
        <Route exact path="/register" element={<Register/>}/>
       

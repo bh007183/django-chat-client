@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Fab from "@mui/material/Fab";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import FormHelper from "../../utility";
 import {Link} from "react-router-dom"
 import "./style.css";
-import {user_login} from "../../redux/auth-slice";
-import {useDispatch, useSelectore} from "react-redux"
 import { useStoreContext } from "../Context/store";
+import Alerts from "../Components/alerts"
 export default function Login() {
   
   const [state, dispatch] = useStoreContext()
@@ -47,6 +45,7 @@ export default function Login() {
       <section className="top-wave"></section>
       <section className="center-contain">
         <div>
+        { state.error.detail ? <Alerts severity="error" message={state.error.detail}></Alerts> :<></> }
           <h1 className="center-align entry-title">Login</h1>
           <h6></h6>
           <div className="entry-form-wraper">

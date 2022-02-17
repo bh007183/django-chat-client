@@ -1,0 +1,19 @@
+#dash-container{
+    min-height: 93vh;
+    min-width: 100vw;
+    background-color: black;
+    display: flex;
+}
+#room-list-container{
+    min-width: 30%;
+    min-height: 100%;
+    background: purple;
+}
+#conversation-container{
+    min-width: 70%;
+    min-height: 100%;
+    position: relative;
+    
+}
+
+  

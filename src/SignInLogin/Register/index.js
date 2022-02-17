@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Box, Grid, TextField } from "@mui/material";
 import "./style.css";
-import FormHelper from "../../utility";
-import { create_user, reset_error } from "../../redux/auth-slice";
-import { useDispatch, useSelector } from "react-redux";
 import { useStoreContext } from "../Context/store";
+import Alerts from "../Components/alerts"
 export default function Register() {
   // Import handleInput function
  
@@ -34,6 +32,7 @@ export default function Register() {
   //     dispatch(reset_error());
   //   };
   // });
+  console.log(state)
 
   const handleInput = (event) => {
     let name = event.target.name;
@@ -47,6 +46,8 @@ export default function Register() {
   return (
     <div className="register-container">
       <form onSubmit={handle_submit} className="register-form">
+        { state.error.email ? <Alerts severity="error" message={state.error.email[0]}></Alerts> : 
+        state.error.password ? <Alerts severity="error" message={state.error.password[0]}></Alerts> :<></> }
         <div>
           <p>Welcome to Chat, fill out the form below to register!</p>
         </div>
