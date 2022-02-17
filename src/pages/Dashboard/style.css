@@ -5,7 +5,7 @@
     display: flex;
 }
 #room-list-container{
-    min-width: 30%;
+    width: 100%;
     min-height: 100%;
     background: purple;
 }
