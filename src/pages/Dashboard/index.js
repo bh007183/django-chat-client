@@ -1,23 +1,24 @@
 import React from "react";
 import "./style.css";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import RoomButton from "../../components/RoomButton"
+import Stack from '@mui/material/Stack';
 // import ConversationContainer from '../../components/Conversation';
-import TextArea from "../../components/TextArea";
+import ConversationArea from "../../components/Conversation";
+
 export default function Dashboard() {
-  const matches = useMediaQuery("(min-width:600px)");
-  console.log(matches);
+
   return (
     <div id="dash-container">
-      <section id="room-list-container"></section>
+    <section id="room-list-container">
+    <Stack spacing={1} direction="column">
+      <br></br>
+      <RoomButton/>
+      <RoomButton/>
+    </Stack>
 
-      {matches && (
-        <>
-          <section id="conversation-container">
-            <h1 style={{ color: "white" }}>{matches}</h1>
-            <TextArea />
-          </section>
-        </>
-      )}
+    </section>
+
+    <ConversationArea/>
     </div>
   );
 }
